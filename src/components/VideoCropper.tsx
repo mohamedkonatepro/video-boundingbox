@@ -32,7 +32,7 @@ interface RekognitionData {
   Celebrities: Celebrity[];
 }
 
-const VideoEdit: React.FC = () => {
+const VideoCropper: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [timestamp, setTimestamp] = useState<number | null>(null);
@@ -138,4 +138,4 @@ const VideoEdit: React.FC = () => {
   );
 };
 
-export default VideoEdit;
+export default VideoCropper;

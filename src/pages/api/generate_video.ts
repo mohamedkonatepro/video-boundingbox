@@ -20,13 +20,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const cropHeight = Height * 720;
       const cropLeft = Left * 1280;
       const cropTop = Top * 720;
-      return `[0:v]trim=start=${start}:end=${end},setpts=PTS-STARTPTS,crop=${cropWidth}:${cropHeight}:${cropLeft}:${cropTop},scale=1280:720[v${index}]`;
+      return `[0:v]trim=start=${start}:end=${end},setpts=PTS-STARTPTS,crop=${cropWidth}:${cropHeight}:${cropLeft}:${cropTop},scale=1280:720[v${index}];[0:a]atrim=start=${start}:end=${end},asetpts=PTS-STARTPTS[a${index}]`;
     }).join('; ');
 
-    const concatInputs = timestamps.map((_: any, index: any) => `[v${index}]`).join('');
-    const concatFilter = `${concatInputs}concat=n=${timestamps.length}:v=1:a=0[outv]`;
+    const concatInputs = timestamps.map((_: any, index: any) => `[v${index}][a${index}]`).join('');
+    const concatFilter = `${concatInputs}concat=n=${timestamps.length}:v=1:a=1[outv][outa]`;
 
-    const ffmpegCommand = `ffmpeg -i ${inputVideoPath} -filter_complex "${filters}; ${concatFilter}" -map "[outv]" ${outputVideoPath}`;
+    const ffmpegCommand = `ffmpeg -i ${inputVideoPath} -filter_complex "${filters}; ${concatFilter}" -map "[outv]" -map "[outa]" ${outputVideoPath}`;
 
     console.log('ffmpeg command:', ffmpegCommand);
 
@@ -54,6 +54,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
-
 
 export default handler;

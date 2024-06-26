@@ -1,10 +1,10 @@
-import VideoCapture from '@/components/VideoCapture';
+import VideoWithBoundingBox from "@/components/VideoWithBoundingBox";
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-white'>
       <h1>Video Capture</h1>
-      <VideoCapture />
+      <VideoWithBoundingBox />
     </div>
   );
 };
