@@ -91,10 +91,10 @@ const VideoWithBoundingBox: React.FC = () => {
     context.strokeRect(left, top, boxWidth, boxHeight);
 
     context.fillStyle = 'rgba(0, 0, 0, 0.9)';
-    context.fillRect(0, 0, width, top); // Top rectangle
-    context.fillRect(0, top, left, boxHeight); // Left rectangle
-    context.fillRect(left + boxWidth, top, width - (left + boxWidth), boxHeight); // Right rectangle
-    context.fillRect(0, top + boxHeight, width, height - (top + boxHeight)); // Bottom rectangle
+    context.fillRect(0, 0, width, top);
+    context.fillRect(0, top, left, boxHeight);
+    context.fillRect(left + boxWidth, top, width - (left + boxWidth), boxHeight);
+    context.fillRect(0, top + boxHeight, width, height - (top + boxHeight));
   };
 
   const handleTimeUpdate = () => {
@@ -110,7 +110,9 @@ const VideoWithBoundingBox: React.FC = () => {
     } else {
       if (canvasRef.current) {
         const context = canvasRef.current.getContext('2d');
-        if (context) context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        if (context) {
+          context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        }
       }
       setIsCanvasVisible(false);
     }
