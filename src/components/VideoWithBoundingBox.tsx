@@ -76,21 +76,21 @@ const VideoWithBoundingBox: React.FC = () => {
     canvas.height = height;
     context.clearRect(0, 0, width, height);
 
-    context.strokeStyle = 'red';
-    context.lineWidth = 2;
+    context.strokeStyle = 'black';
+    context.lineWidth = 1;
 
     // Calculate dynamic bounding box dimensions
     const boxWidth = boxSize.width;
     const boxHeight = boxSize.height;
 
     // Ensure the bounding box stays within video frame
-    const left = Math.min(Math.max(boundingBox.Left * width, 0), width - boxWidth);
-    const top = Math.min(Math.max(boundingBox.Top * height, 0), height - boxHeight);
+    const left = Math.min(Math.max((boundingBox.Left * width) + ((boundingBox.Width * width) / 2) - (boxWidth / 2), 0), width - boxWidth);
+    const top = Math.min(Math.max((boundingBox.Top * height) + ((boundingBox.Height * height) / 2) - (boxHeight / 2), 0), height - boxHeight);
 
     // Draw the bounding box
     context.strokeRect(left, top, boxWidth, boxHeight);
 
-    context.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    context.fillStyle = 'rgba(0, 0, 0, 0.9)';
     context.fillRect(0, 0, width, top); // Top rectangle
     context.fillRect(0, top, left, boxHeight); // Left rectangle
     context.fillRect(left + boxWidth, top, width - (left + boxWidth), boxHeight); // Right rectangle
@@ -145,13 +145,12 @@ const VideoWithBoundingBox: React.FC = () => {
         </button>
         <button
           className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
-          onClick={() => setBoxSize({ width: 810, height: 1400 })}
+          onClick={() => setBoxSize({ width: 810 / 2, height: 1400 / 2 })}
         >
           810x1400
         </button>
       </div>
     </div>
-
   );
 };
 
