@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Video with Bounding Box Highlighting using React
 
-First, run the development server:
+This project is a web application built with React, designed to display a video with dynamic bounding boxes highlighting specific objects or celebrities at given timestamps. The example focuses on highlighting appearances of Jeff Bezos using data from AWS Rekognition.
+
+## Features
+
+- **Dynamic Bounding Boxes**: Draws bounding boxes around detected celebrities or objects in the video.
+- **Canvas Overlay**: Uses HTML5 Canvas to draw bounding boxes on top of the video element.
+- **Timestamp-Based Highlighting**: Bounding boxes appear based on the video's current timestamp.
+- **Resizable Bounding Boxes**: Option to change the size of the bounding boxes through buttons.
+
+## Prerequisites
+
+- Node.js (version 12 or higher)
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/mohamedkonatepro/video-boundingboxr.git
+   cd video-boundingbox
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+## Development
+
+To start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `public/`: Static files including video files and rekognition.json.
+- `src/`: Application source code.
 
-## Learn More
+### Main Component
 
-To learn more about Next.js, take a look at the following resources:
+#### `src/components/VideoWithBoundingBox.tsx`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This is the main component that handles the video playback and drawing of bounding boxes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### How It Works
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. **Fetch Rekognition Data**: On component mount, fetch the rekognition data from a local JSON file (`rekognition.json`).
+2. **Filter Celebrities**: Filter the data to find appearances of Jeff Bezos and store the timestamps and bounding box data in the component state.
+3. **Handle Video Time Update**: On each time update of the video, check if there's a corresponding bounding box for the current timestamp and draw it on the canvas.
+4. **Draw Bounding Box**: Draw the bounding box on the canvas, ensuring it stays within the video frame.
+5. **Resize Bounding Box**: Buttons allow resizing the bounding box dynamically.
